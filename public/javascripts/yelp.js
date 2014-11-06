@@ -5,10 +5,10 @@
 
 function yelp_getLocations(location, businessType, mapType) {
 	var auth = {
-		consumerKey: YELP_CONSUMER_KEY,
-		consumerSecret: YELP_COSUMER_SECRET,
-		accessToken: YELP_TOKEN_ACCESS,
-		accessTokenSecret: YELP_TOKEN_SECRET,
+		consumerKey: keys.YELP_CONSUMER_KEY,
+		consumerSecret: keys.YELP_COSUMER_SECRET,
+		accessToken: keys.YELP_TOKEN_ACCESS,
+		accessTokenSecret: keys.YELP_TOKEN_SECRET,
 		serviceProvider: {
 			signatureMethod: "HMAC-SHA1"
 		}
@@ -62,10 +62,6 @@ function yelp_getLocations(location, businessType, mapType) {
 function yelp_pushPinLocation(coord) {
 	//console.log(coord.latitude + ", " + coord.longitude);
 	var myLatlng = new google.maps.LatLng(coord.latitude, coord.longitude);
-  	var mapOptions = {
-    	zoom: 8,
-    	center: myLatlng
-  	}
   	var marker = new google.maps.Marker({
       position: myLatlng,
       map: map,
@@ -85,15 +81,17 @@ function yelp_pushHeatMapLocation(coords) {
 	for(var i=0; i<coords.length; i++) {
 		var myLatlng = new google.maps.LatLng(coords[i].latitude, coords[i].longitude);
 		markers.push(myLatlng)
-		// var marker = new google.maps.Marker({
-	 //      position: myLatlng,
-	 //      map: map,
-	 //      title: 'Hello World!'
-	 //  	});
-	 //  	bounds.extend(marker.position);
+	   	bounds.extend(myLatlng);
 	}
 
   var pointArray = new google.maps.MVCArray(markers);
+
+  /*var mapOptions = {
+          center: { lat: 67.7642944915352, lng: -122.430696487427 },
+          zoom: 8
+        };
+        map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);*/
 
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: pointArray,
@@ -101,7 +99,7 @@ function yelp_pushHeatMapLocation(coords) {
   });
 
   heatmap.setMap(map);
-    // map.fitBounds(bounds);
+   map.fitBounds(bounds);
 }
 
 
