@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html>
   <head>
-     <meta charset="utf-8">
+    <meta charset="utf-8">
     <link type="text/css" rel="stylesheet" href="http://static.ctctcdn.com/h/fed-framework/0.23.0/fed.min.css" />
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type='text/javascript' src='javascripts/lib/oauth.min.js'></script>
     <script src="http://static.ctctcdn.com/h/fed-framework/0.23.0/fed.min.js"></script>
     <script type='text/javascript' src='javascripts/keys.js'></script>
+    <script type='text/javascript' src='javascripts/lib/ctct.js'></script>
     <title>FED Template</title>
   </head>
   
   <body>
 
   <script>
-    OAuth.initialize(CTCT_KEY)
-    OAuth.popup('constant_contact').done(function(result) {
-      console.log(result)
-      // do some stuff with result
-    })
+  $( document ).ready( function(){
+    console.log("Starting up!");
+    getDefaultContacts(CTCT_API_KEY, testOutput);
+  });
+  
+  
   </script>
   </body>
 </html>
