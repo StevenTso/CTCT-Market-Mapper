@@ -30,10 +30,10 @@
             mapOptions);
 
 
-        var splitter = window.location.href.split("?");
-        var location = decodeURIComponent(splitter[1]);
-        var businessType = decodeURIComponent(splitter[2]);
-        var mapType = decodeURIComponent(splitter[3]);
+        var splitter = window.location.href.split("&");
+        var location = decodeURIComponent(splitter[0]);
+        var businessType = decodeURIComponent(splitter[1]);
+        var mapType = decodeURIComponent(splitter[2]);
 
         location = location.substring(location.indexOf('=')+1, location.length);
         businessType = businessType.substring(businessType.indexOf('=')+1, businessType.length);

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- saved from url=(0040)http://getbootstrap.com/examples/signin/ -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,15 +15,6 @@
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="./Signin Template for Bootstrap_files/ie-emulation-modes-warning.js"></script>
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
   </head>
 
   <body>
@@ -35,8 +25,15 @@
         <h2 class="form-signin-heading">Please enter info:</h2>
         <input type="text" class="form-control" placeholder="Location" required="" autofocus="">
         <input type="text" class="form-control" placeholder="Business Type" required="">
-        <div class="checkbox">
+        <div style="display: table; margin: 0 auto;">
+        <input type="hidden" id="alignment" value="" />
+        <br>
+        <div class="btn-group alignment" data-toggle="buttons-checkbox">
+            <button type="button" class="btn">HeatMap</button>
+            <button type="button" class="btn">PinPoint</button>
         </div>
+        </div>
+        <br>
         <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Enter</button>
       </form>
 
@@ -44,14 +41,20 @@
 
 
     <script>
+        $(".alignment .btn").click(function() {
+            // whenever a button is clicked, set the hidden helper
+            pinType = $("#alignment").val($(this).text()).val()
+            if(pinType != 'HeatMap') {
+                pinType = 'pin'
+            }
+        }); 
+
         $('#submit').click(function() {
-            var url = 'business.html?location=' + $(".form-control")[0].value + "?type=" + $(".form-control")[1].value;
+            var url = 'business.html?location=' + $(".form-control")[0].value + "&type=" + $(".form-control")[1].value + "&pin=" + pinType;
             window.location.href = url;
             return false;
         });
     </script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="./Signin Template for Bootstrap_files/ie10-viewport-bug-workaround.js"></script>
-  
+
 
 </body></html>
