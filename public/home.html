@@ -11,46 +11,84 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!-- Bootstrap core CSS -->
     <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="http://maxcdn.bootstrapcdn.com/bootswatch/3.3.0/paper/bootstrap.min.css" rel="stylesheet">
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
 
   </head>
 
-  <body>
+  <body class="text-center">
+  <h1>Market Mapper</h1>
+  <br>
+    <div class="row">
+      <div class="col-md-6">
+          <h2><u>Business Analyser</u></h2>
+          <form class="form-signin" role="form">
+            <h4 class="form-signin-heading">Please enter info:</h4>
+            <input type="text" class="form-control" placeholder="Location" required="" autofocus="">
+            <input type="text" class="form-control" placeholder="Business Type" required="">
+            <div style="display: table; margin: 0 auto;">
+                <input type="hidden" id="yelp" value="" />
+                <br>
+                <div class="btn-group yelp" data-toggle="buttons-checkbox">
+                    <button type="button" class="btn">HeatMap</button>
+                    <button type="button" class="btn">PinPoint</button>
+                </div>
+            </div>
+            <br>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" id="yelpEnter">Enter</button>
+        </form>
+    </div>
 
-    <div class="container">
 
+    <div class="col-md-6">
+      <h2><u>Customer Analyser</u></h2>
       <form class="form-signin" role="form">
-        <h2 class="form-signin-heading">Please enter info:</h2>
-        <input type="text" class="form-control" placeholder="Location" required="" autofocus="">
-        <input type="text" class="form-control" placeholder="Business Type" required="">
+        <h4 class="form-signin-heading">Please choose info:</h4>
         <div style="display: table; margin: 0 auto;">
-        <input type="hidden" id="alignment" value="" />
-        <br>
-        <div class="btn-group alignment" data-toggle="buttons-checkbox">
-            <button type="button" class="btn">HeatMap</button>
-            <button type="button" class="btn">PinPoint</button>
+            <input type="hidden" id="ctct" value="" />
+            <br>
+            <div class="btn-group ctct" data-toggle="buttons-checkbox">
+                <button type="button" class="btn">HeatMap</button>
+                <button type="button" class="btn">PinPoint</button>
+            </div>
         </div>
-        </div>
         <br>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" id="submit">Enter</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" id="ctctEnter">Enter</button>
       </form>
+    </div>
 
-    </div> <!-- /container -->
+</div>
+
+
+
 
 
     <script>
-        $(".alignment .btn").click(function() {
+        $(".yelp .btn").click(function() {
             // whenever a button is clicked, set the hidden helper
-            pinType = $("#alignment").val($(this).text()).val()
-            if(pinType != 'HeatMap') {
-                pinType = 'pin'
+            pinTypeYelp = $("#yelp").val($(this).text()).val()
+            if(pinTypeYelp != 'HeatMap') {
+                pinTypeYelp = 'pin'
             }
         }); 
 
-        $('#submit').click(function() {
-            var url = 'business.html?location=' + $(".form-control")[0].value + "&type=" + $(".form-control")[1].value + "&pin=" + pinType;
+        $('#yelpEnter').click(function() {
+            var url = 'business.html?location=' + $(".form-control")[0].value + "&type=" + $(".form-control")[1].value + "&pin=" + pinTypeYelp;
+            window.location.href = url;
+            return false;
+        });
+
+        $(".ctct .btn").click(function() {
+            // whenever a button is clicked, set the hidden helper
+            pinTypeCTCT = $("#ctct").val($(this).text()).val()
+            if(pinTypeCTCT != 'HeatMap') {
+                pinTypeCTCT = 'pin'
+            }
+        }); 
+
+        $('#ctctEnter').click(function() {
+            var url = 'index?pin=' + pinTypeCTCT;
             window.location.href = url;
             return false;
         });

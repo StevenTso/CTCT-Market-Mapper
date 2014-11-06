@@ -15,7 +15,7 @@ html
                 zoom: 8
             };
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
+            bounds = new google.maps.LatLngBounds();
             var test = JSON.parse(customers.innerHTML.substring(11))
             for(var i=0; i<test.length; i++) {
                 var name = test[i].first_name || "" + " " + test[i].last_name + "";
@@ -30,6 +30,9 @@ html
                         url: url
                         }).then(function(data) {
                             var coord = data.results[0].geometry.location
+
+                            //PINPOINT
+                            if()
                             var myLatlng = new google.maps.LatLng(coord.lat, coord.lng);
                             var mapOptions = {
                                 zoom: 8,
@@ -40,6 +43,8 @@ html
                               map: map,
                               title: name
                             });
+                            bounds.extend(marker.position);
+                            map.fitBounds(bounds);
                         });
                 }
             }
