@@ -99,7 +99,7 @@ function yelp_pushHeatMapLocation(coords) {
   });
 
   heatmap.setMap(map);
-   map.fitBounds(bounds);
+  map.fitBounds(bounds);
 }
 
 

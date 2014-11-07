@@ -1,4 +1,3 @@
-
 function ctct_getLocations(dataSet, mapType) {
     if(mapType == "pin") {
         console.log("djlf")
@@ -27,6 +26,7 @@ function ctct_getLocations(dataSet, mapType) {
             var addresses = dataSet[i].addresses;
             if(addresses.length) {
                 var addressTemp = addresses[0];
+                console.log("inside")
                 //street num+name, city, state, postal code
                 //line1 + city, state, postal_code
                 var address = addressTemp.line1 + " " + addressTemp.city + ", " + addressTemp.state + " " + addressTemp.postal_code;
@@ -34,12 +34,15 @@ function ctct_getLocations(dataSet, mapType) {
                 $.ajax({
                     url: url
                 }).then(function(data) {
+                    console.log("pushed")
                     var coord = data.results[0].geometry.location;
                     dataArr.push(coord);
                 });
             }
         }
-        ctct_pushHeatMapLocations(dataArr);
+        setTimeout(function(){
+            ctct_pushHeatMapLocations(dataArr);
+        }, 2000);
     }
 }
 
@@ -62,6 +65,21 @@ function ctct_pushPinLocations(coord) {
 }
 
 function ctct_pushHeatMapLocations(dataArr) {
-    console.log("WHAT")
-    console.log(dataArr);
+    var markers = [];
+    for(var i=0; i<dataArr.length; i++) {
+        var myLatlng = new google.maps.LatLng(dataArr[i].lat, dataArr[i].lng);
+        markers.push(myLatlng)
+        bounds.extend(myLatlng);
+    }
+
+  var pointArray = new google.maps.MVCArray(markers);
+
+
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: pointArray,
+    map: map
+  });
+
+  heatmap.setMap(map);
+  map.fitBounds(bounds);
 }
