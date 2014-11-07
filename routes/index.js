@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var dataBridge = require("../ctctDataBridge");
-var keys = require("../public/javascripts/keys");
+var dataBridge = require("../ctctDataBridge.js");
+var keys = require("../public/javascripts/keys.js");
 
 /* GET users listing. */
 router.get('/', function(req, res) {
