@@ -15,5 +15,8 @@
     "jade": "~1.6.0",
     "node-rest-client": "1.4.1",
     "oauth-signature": "1.2.2"
+  },
+  "engines": {
+    "node": "0.10.x"
   }
 }
