@@ -4,7 +4,7 @@ html
     title= "Demo"
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js")
-
+    script(src="/javascripts/ctct.js")
     style.
       html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
     script(src="https://maps.googleapis.com/maps/api/js?sensor=false")
@@ -16,38 +16,13 @@ html
             };
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             bounds = new google.maps.LatLngBounds();
-            var test = JSON.parse(customers.innerHTML.substring(11))
-            for(var i=0; i<test.length; i++) {
-                var name = test[i].first_name || "" + " " + test[i].last_name + "";
-                var addresses = test[i].addresses;
-                if(addresses.length) {
-                    var addressTemp = addresses[0];
-                    //street num+name, city, state, postal code
-                    //line1 + city, state, postal_code
-                    var address = addressTemp.line1 + " " + addressTemp.city + ", " + addressTemp.state + " " + addressTemp.postal_code;
-                    var url = "http://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&sensor=false"
-                    $.ajax({
-                        url: url
-                        }).then(function(data) {
-                            var coord = data.results[0].geometry.location
+            var data = JSON.parse(customers.innerHTML.substring(11))
 
-                            //PINPOINT
-                            if()
-                            var myLatlng = new google.maps.LatLng(coord.lat, coord.lng);
-                            var mapOptions = {
-                                zoom: 8,
-                                center: myLatlng
-                            }
-                            var marker = new google.maps.Marker({
-                              position: myLatlng,
-                              map: map,
-                              title: name
-                            });
-                            bounds.extend(marker.position);
-                            map.fitBounds(bounds);
-                        });
-                }
-            }
+            var splitter = window.location.href.split("&");
+            var pinType = decodeURIComponent(splitter[0]);
+            pinType = pinType.substring(pinType.indexOf('=')+1, pinType.length);
+            console.log(pinType)
+            ctct_getLocations(data, pinType)
         }
         google.maps.event.addDomListener(window, 'load', initialize);
 
